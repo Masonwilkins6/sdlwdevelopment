@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rational Build — Software Solutions for Real Estate &amp; Home Services</title>
+  <meta name="description" content="Custom software solutions for real estate investors and home service businesses in San Diego. Websites, dashboards, analytics tools, and consulting.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-2: #475569;
+      --text-3: #94a3b8;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-glow: rgba(37,99,235,0.08);
+      --accent: #f59e0b;
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
+      --success: #10b981;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --max-w: 1160px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 1px 8px rgba(0,0,0,.04); }
+    .nav-inner {
+      max-width: var(--max-w); margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
+    }
+    .logo { font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; letter-spacing: -.02em; }
+    .logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-2); font-size: .875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta {
+      background: var(--primary)!important; color: #fff!important;
+      padding: 9px 22px; border-radius: var(--radius-sm); font-weight: 600!important; font-size: .85rem!important;
+      transition: background .2s, box-shadow .2s!important;
+      box-shadow: 0 1px 4px rgba(37,99,235,.2);
+    }
+    .nav-cta:hover { background: var(--primary-dark)!important; box-shadow: 0 3px 12px rgba(37,99,235,.25)!important; }
+    .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+    .mobile-toggle span { display: block; width: 20px; height: 2px; background: var(--text); margin: 5px 0; border-radius: 1px; transition: .3s; }
+
+    /* ---- HERO ---- */
+    .hero {
+      padding: 144px 28px 88px; text-align: center;
+      background: linear-gradient(180deg, var(--primary-light) 0%, var(--bg) 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 900px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 700px; margin: 0 auto; position: relative; }
+    .hero-badge {
+      display: inline-block; background: var(--surface); border: 1px solid var(--border);
+      padding: 7px 18px; border-radius: 100px; font-size: .82rem; font-weight: 500;
+      color: var(--text-2); margin-bottom: 28px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.03);
+    }
+    .hero-badge strong { color: var(--primary); }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800;
+      line-height: 1.13; letter-spacing: -.035em; margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: normal; color: var(--primary); }
+    .hero p {
+      font-size: 1.1rem; color: var(--text-2);
+      max-width: 540px; margin: 0 auto 36px; line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border-radius: var(--radius-sm);
+      font-size: .93rem; font-weight: 600; text-decoration: none;
+      border: none; cursor: pointer; transition: all .2s ease;
+    }
+    .btn-primary {
+      background: var(--primary); color: #fff;
+      box-shadow: 0 1px 6px rgba(37,99,235,.25);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 16px rgba(37,99,235,.3);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: var(--surface); color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,.03);
+    }
+    .btn-secondary:hover { border-color: #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,.06); transform: translateY(-1px); }
+
+    .hero-proof { margin-top: 48px; display: flex; justify-content: center; gap: 36px; flex-wrap: wrap; }
+    .hero-proof-item {
+      font-size: .82rem; color: var(--text-3); display: flex; align-items: center; gap: 7px; font-weight: 500;
+    }
+    .check-icon { color: var(--success); flex-shrink: 0; }
+
+    /* ---- SECTIONS ---- */
+    section { padding: 88px 28px; }
+    .section-inner { max-width: var(--max-w); margin: 0 auto; }
+    .section-label {
+      font-size: .75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--primary); margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3.2vw, 2.15rem); font-weight: 800;
+      letter-spacing: -.025em; line-height: 1.2; margin-bottom: 14px;
+    }
+    .section-sub { font-size: 1rem; color: var(--text-2); max-width: 560px; line-height: 1.7; }
+    .section-hd { margin-bottom: 52px; }
+    .section-hd.c { text-align: center; }
+    .section-hd.c .section-sub { margin: 0 auto; }
+
+    /* ---- PROBLEM ---- */
+    .alt-bg { background: var(--surface); }
+    .pgrid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+    .pcard {
+      padding: 28px 26px; border: 1px solid var(--border); border-radius: var(--radius);
+      background: var(--bg); transition: all .25s ease;
+    }
+    .pcard:hover { border-color: #cbd5e1; box-shadow: 0 4px 16px rgba(0,0,0,.04); transform: translateY(-2px); }
+    .pcard-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--primary-light); display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px; font-size: 1.15rem;
+    }
+    .pcard h3 { font-size: .95rem; font-weight: 700; margin-bottom: 6px; }
+    .pcard p { color: var(--text-2); font-size: .87rem; line-height: 1.6; }
+
+    /* ---- SOLUTIONS ---- */
+    .sgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .scard {
+      padding: 30px 26px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); transition: all .25s ease;
+    }
+    .scard:hover { border-color: var(--primary); box-shadow: 0 8px 28px rgba(37,99,235,.07); transform: translateY(-3px); }
+    .scard-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: var(--primary-light); display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px; font-size: 1.2rem;
+    }
+    .scard h3 { font-size: .97rem; font-weight: 700; margin-bottom: 6px; }
+    .scard > p { color: var(--text-2); font-size: .86rem; line-height: 1.6; margin-bottom: 18px; }
+    .sfeats { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .sfeats li {
+      font-size: .82rem; color: var(--text-2); display: flex; align-items: center; gap: 9px; font-weight: 500;
+    }
+    .sfeats li .check-icon { color: var(--primary); }
+
+    /* ---- PRICING ---- */
+    .pricegrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; align-items: start; }
+    .prcard {
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 34px 28px; background: var(--surface); transition: all .25s ease;
+    }
+    .prcard:hover { box-shadow: 0 8px 32px rgba(0,0,0,.06); transform: translateY(-3px); }
+    .prcard.feat { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary), 0 4px 20px rgba(37,99,235,.08); }
+    .prcard.feat:hover { box-shadow: 0 0 0 1px var(--primary), 0 12px 36px rgba(37,99,235,.12); }
+    .pr-pop {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--primary); color: #fff; font-size: .7rem; font-weight: 700;
+      padding: 4px 16px; border-radius: 100px; text-transform: uppercase; letter-spacing: .06em;
+    }
+    .prcard.feat { position: relative; }
+    .pr-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 3px; }
+    .pr-desc { font-size: .82rem; color: var(--text-2); margin-bottom: 20px; }
+    .pr-amt { display: flex; align-items: baseline; gap: 3px; margin-bottom: 3px; }
+    .pr-dollar { font-size: 2.5rem; font-weight: 800; letter-spacing: -.03em; }
+    .pr-period { font-size: .85rem; color: var(--text-3); font-weight: 500; }
+    .pr-setup { font-size: .78rem; color: var(--success); font-weight: 600; margin-bottom: 24px; }
+    .pr-feats { list-style: none; margin-bottom: 28px; display: flex; flex-direction: column; gap: 12px; }
+    .pr-feats li {
+      font-size: .87rem; color: var(--text-2); display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;
+    }
+    .pr-feats li .check-icon { flex-shrink: 0; margin-top: 2px; color: var(--primary); }
+    .prcard .btn { width: 100%; justify-content: center; }
+    .pr-note { text-align: center; margin-top: 32px; color: var(--text-3); font-size: .87rem; }
+
+    /* ---- PROCESS ---- */
+    .proc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+    .proc-step { text-align: center; }
+    .proc-num {
+      width: 48px; height: 48px; margin: 0 auto 16px;
+      background: var(--primary-light); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.05rem; font-weight: 800; color: var(--primary);
+    }
+    .proc-step h3 { font-size: .97rem; font-weight: 700; margin-bottom: 8px; }
+    .proc-step p { font-size: .85rem; color: var(--text-2); line-height: 1.6; max-width: 220px; margin: 0 auto; }
+
+    /* ---- FAQ ---- */
+    .faq-list { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden; background: var(--surface); transition: border-color .2s; }
+    .faq-item:hover { border-color: #cbd5e1; }
+    .faq-item.open { border-color: var(--primary); }
+    .faq-q {
+      width: 100%; background: none; border: none;
+      padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      cursor: pointer; font-family: inherit; font-size: .92rem; font-weight: 600; color: var(--text); text-align: left;
+    }
+    .faq-q:hover { background: var(--primary-light); }
+    .faq-icon {
+      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+      background: var(--primary-light); display: flex; align-items: center; justify-content: center;
+      transition: transform .3s ease;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-item.open .faq-a { max-height: 200px; }
+    .faq-a p { padding: 0 24px 20px; font-size: .88rem; color: var(--text-2); line-height: 1.7; }
+
+    /* ---- CTA ---- */
+    .cta-band {
+      background: var(--text); color: #fff; text-align: center; padding: 88px 28px;
+    }
+    .cta-band .section-label { color: var(--accent); }
+    .cta-band .section-title { color: #fff; }
+    .cta-band .section-sub { color: #94a3b8; margin: 0 auto 36px; }
+    .cta-band .btn-primary { background: #fff; color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+    .cta-band .btn-primary:hover { background: #f1f5f9; box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+
+    /* ---- CONTACT ---- */
+    .contact-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 52px; align-items: start; }
+    .contact-info h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; }
+    .contact-info > p { color: var(--text-2); font-size: .92rem; line-height: 1.7; margin-bottom: 28px; }
+    .c-detail { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+    .c-detail-icon {
+      width: 40px; height: 40px; background: var(--primary-light); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .c-detail-icon svg { color: var(--primary); }
+    .c-detail div { font-size: .88rem; }
+    .c-detail strong { display: block; font-weight: 600; margin-bottom: 1px; }
+    .c-detail span { color: var(--text-2); }
+    .c-detail a { color: var(--primary); text-decoration: none; }
+    .c-detail a:hover { text-decoration: underline; }
+    .c-form {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.03);
+    }
+    .fg { margin-bottom: 18px; }
+    .fg label { display: block; font-size: .82rem; font-weight: 600; margin-bottom: 6px; }
+    .fg input, .fg select, .fg textarea {
+      width: 100%; padding: 11px 16px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      font-family: inherit; font-size: .9rem; color: var(--text); background: var(--bg);
+      transition: border-color .2s, box-shadow .2s; outline: none;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus {
+      border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+    .fg input::placeholder, .fg textarea::placeholder { color: var(--text-3); }
+    .fg textarea { resize: vertical; min-height: 96px; }
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--text); color: #64748b; padding: 40px 28px; text-align: center; font-size: .82rem;
+    }
+    footer a { color: #64748b; text-decoration: none; }
+    footer a:hover { color: #fff; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 1024px) {
+      .sgrid, .pricegrid { grid-template-columns: repeat(2,1fr); }
+      .proc-grid { grid-template-columns: repeat(2,1fr); gap: 28px; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 68px 20px; }
+      .nav-inner { padding: 0 20px; height: 60px; }
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column; position: absolute;
+        top: 60px; left: 0; right: 0; background: var(--surface);
+        border-bottom: 1px solid var(--border); padding: 24px; gap: 18px;
+        box-shadow: 0 8px 24px rgba(0,0,0,.06);
+      }
+      .mobile-toggle { display: block; }
+      .hero { padding: 120px 20px 64px; }
+      .pgrid, .sgrid, .pricegrid { grid-template-columns: 1fr; }
+      .proc-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 32px; }
+      .f-row { grid-template-columns: 1fr; }
+      .hero-proof { gap: 16px; }
+    }
+
+    /* ---- ANIM ---- */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">Rational<span>Build</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#solutions">Solutions</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#process">Process</a>
+      <a href="#faq">FAQ</a>
+      <a href="audit.html" class="nav-cta">Free Website Audit</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner fade-up">
+    <div class="hero-badge">Software for <strong>Real Estate &amp; Home Services</strong></div>
+    <h1>Custom software that helps your business <em>run smarter</em></h1>
+    <p>We build the tools that real estate investors and home service companies actually need — from client-facing websites to internal dashboards and analytics platforms. It starts with a conversation about your business.</p>
+    <div class="hero-actions">
+      <a href="audit.html" class="btn btn-primary">Free Website Audit</a>
+      <a href="#contact" class="btn btn-secondary">Free Business Audit</a>
+    </div>
+    <div class="hero-proof">
+      <div class="hero-proof-item"><svg class="check-icon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>San Diego based</div>
+      <div class="hero-proof-item"><svg class="check-icon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Real estate &amp; trades focused</div>
+      <div class="hero-proof-item"><svg class="check-icon" width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Audit + development</div>
+    </div>
+  </div>
+</section>
+
+<section class="alt-bg" id="problem">
+  <div class="section-inner">
+    <div class="section-hd c fade-up">
+      <div class="section-label">The Problem</div>
+      <h2 class="section-title">You're running your business on spreadsheets and gut instinct</h2>
+      <p class="section-sub">Most real estate and home service businesses have the same blind spots. The right software turns these into competitive advantages.</p>
+    </div>
+    <div class="pgrid">
+      <div class="pcard fade-up"><div class="pcard-icon">&#128202;</div><h3>No visibility into your numbers</h3><p>Deal analysis lives in scattered spreadsheets. Job profitability is a guess. You can't see what's working until it's too late to change course.</p></div>
+      <div class="pcard fade-up"><div class="pcard-icon">&#128241;</div><h3>Your online presence is costing you leads</h3><p>Your website is outdated, slow, or doesn't exist. Customers are searching for your services and finding your competitors instead.</p></div>
+      <div class="pcard fade-up"><div class="pcard-icon">&#9203;</div><h3>Manual processes eating your time</h3><p>Hours spent on tasks that should be automated — lead tracking, reporting, scheduling, follow-ups. Time you could spend closing deals.</p></div>
+      <div class="pcard fade-up"><div class="pcard-icon">&#128736;</div><h3>Off-the-shelf tools don't fit</h3><p>Generic SaaS products force you into their workflow. You need tools shaped around how your business actually operates.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="solutions">
+  <div class="section-inner">
+    <div class="section-hd c fade-up">
+      <div class="section-label">What We Build</div>
+      <h2 class="section-title">Software solutions tailored to your business</h2>
+      <p class="section-sub">Every engagement starts with understanding your business. Then we build exactly what you need — nothing more, nothing less.</p>
+    </div>
+    <div class="sgrid">
+      <div class="scard fade-up">
+        <div class="scard-icon">&#127760;</div>
+        <h3>Business Websites</h3>
+        <p>Professional, mobile-first websites that convert visitors into customers. Built for speed, SEO, and credibility.</p>
+        <ul class="sfeats">
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom design &amp; branding</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Click-to-call, booking, contact forms</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Local SEO &amp; Google Business Profile</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>SSL, hosting &amp; ongoing maintenance</li>
+        </ul>
+      </div>
+      <div class="scard fade-up">
+        <div class="scard-icon">&#128200;</div>
+        <h3>Internal Dashboards</h3>
+        <p>Custom dashboards that give you real-time visibility into your operations, pipeline, and financials — all in one place.</p>
+        <ul class="sfeats">
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>KPI tracking &amp; reporting</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Job &amp; project management</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Lead pipeline &amp; CRM integration</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Role-based access for your team</li>
+        </ul>
+      </div>
+      <div class="scard fade-up">
+        <div class="scard-icon">&#127968;</div>
+        <h3>Business Intelligence &amp; Analytics</h3>
+        <p>Turn your raw data into actionable insights. Understand your market, track your competition, and make smarter decisions.</p>
+        <ul class="sfeats">
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Competitive &amp; market analysis tools</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Financial modeling &amp; forecasting</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Performance benchmarking &amp; scoring</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom reports &amp; data visualization</li>
+        </ul>
+      </div>
+      <div class="scard fade-up">
+        <div class="scard-icon">&#129302;</div>
+        <h3>Automation &amp; Integrations</h3>
+        <p>Connect your existing tools and automate the repetitive work that's slowing you down. More output, less busywork.</p>
+        <ul class="sfeats">
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Automated lead capture &amp; follow-up</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Scheduling &amp; dispatch systems</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>API integrations with your stack</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom reporting &amp; alerts</li>
+        </ul>
+      </div>
+      <div class="scard fade-up">
+        <div class="scard-icon">&#128161;</div>
+        <h3>Technology Audit &amp; Strategy</h3>
+        <p>Not sure what you need? We'll audit your current operations and identify the highest-impact software opportunities.</p>
+        <ul class="sfeats">
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Full business process audit</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Technology roadmap &amp; recommendations</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Build vs. buy analysis</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing strategic guidance</li>
+        </ul>
+      </div>
+      <div class="scard fade-up">
+        <div class="scard-icon">&#128640;</div>
+        <h3>Custom Software</h3>
+        <p>Have a specific problem? We design and build custom applications from the ground up — scoped to your exact requirements.</p>
+        <ul class="sfeats">
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Full-stack web applications</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Data pipelines &amp; ETL</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Mobile-responsive &amp; modern UI</li>
+          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing support &amp; iteration</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt-bg" id="pricing">
+  <div class="section-inner">
+    <div class="section-hd c fade-up">
+      <div class="section-label">Pricing</div>
+      <h2 class="section-title">Flexible engagement models</h2>
+      <p class="section-sub">Whether you need a managed website or a full custom build, we have a model that fits. Every engagement starts with a free business audit.</p>
+    </div>
+    <div class="pricegrid">
+      <div class="prcard fade-up">
+        <div class="pr-name">Starter</div>
+        <div class="pr-desc">Professional website with hosting &amp; maintenance</div>
+        <div class="pr-amt"><span class="pr-dollar">$99</span><span class="pr-period">/month</span></div>
+        <div class="pr-setup">$0 setup fee</div>
+        <ul class="pr-feats">
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>5-page mobile-friendly website</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>SSL certificate &amp; hosting</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Click-to-call &amp; contact form</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly maintenance &amp; updates</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Cancel anytime — no contracts</li>
+        </ul>
+        <a href="#contact" class="btn btn-secondary">Get Started</a>
+      </div>
+      <div class="prcard feat fade-up">
+        <div class="pr-pop">Most Popular</div>
+        <div class="pr-name">Growth</div>
+        <div class="pr-desc">Website + SEO + lead generation tools</div>
+        <div class="pr-amt"><span class="pr-dollar">$199</span><span class="pr-period">/month</span></div>
+        <div class="pr-setup">$0 setup fee</div>
+        <ul class="pr-feats">
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Starter</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Google Business Profile optimization</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Local SEO &amp; schema markup</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Online booking integration</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reviews integration</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly performance report</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">Get Started</a>
+      </div>
+      <div class="prcard fade-up">
+        <div class="pr-name">Custom Build</div>
+        <div class="pr-desc">Dashboards, analytics tools &amp; custom software</div>
+        <div class="pr-amt"><span class="pr-dollar">Custom</span></div>
+        <div class="pr-setup">Scoped to your needs</div>
+        <ul class="pr-feats">
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Free business audit</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Internal dashboards &amp; reporting</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Business intelligence &amp; analytics</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Automation &amp; integrations</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Full-stack custom applications</li>
+          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing support &amp; iteration</li>
+        </ul>
+        <a href="#contact" class="btn btn-secondary">Get Your Free Audit</a>
+      </div>
+    </div>
+    <p class="pr-note fade-up">Website plans: no contracts, cancel anytime. Custom projects: scoped and quoted after your free business audit.</p>
+  </div>
+</section>
+
+<section id="process">
+  <div class="section-inner">
+    <div class="section-hd c fade-up">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">From conversation to working software</h2>
+      <p class="section-sub">We don't start with a pitch — we start by understanding your business.</p>
+    </div>
+    <div class="proc-grid fade-up">
+      <div class="proc-step"><div class="proc-num">1</div><h3>Free business audit</h3><p>We analyze how your business operates, where you're losing time or money, and what software could unlock.</p></div>
+      <div class="proc-step"><div class="proc-num">2</div><h3>Solution design</h3><p>We map out exactly what to build, why it matters, and what it costs. A clear proposal with no surprises.</p></div>
+      <div class="proc-step"><div class="proc-num">3</div><h3>Build &amp; iterate</h3><p>We build in short cycles so you see progress fast. You review, give feedback, and we refine.</p></div>
+      <div class="proc-step"><div class="proc-num">4</div><h3>Launch &amp; support</h3><p>We deploy, train your team, and stick around for ongoing maintenance and strategic guidance.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt-bg" id="faq">
+  <div class="section-inner">
+    <div class="section-hd c fade-up">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common questions</h2>
+    </div>
+    <div class="faq-list fade-up">
+      <div class="faq-item"><button class="faq-q">What industries do you work with?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>We focus on real estate (investors, agents, property managers) and home services (plumbers, roofers, electricians, painters, landscapers, HVAC). Our tools are built around how these businesses actually operate.</p></div></div>
+      <div class="faq-item"><button class="faq-q">I just need a website — is that okay?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Absolutely. Our Starter and Growth plans are built for exactly that — professional websites with hosting, maintenance, and SEO. No pressure to go bigger unless it makes sense for your business.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How much does custom software cost?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>It depends on scope and complexity. After your free audit, we'll provide a clear, fixed-price proposal. No hourly billing surprises. Most projects range from a few thousand to tens of thousands.</p></div></div>
+      <div class="faq-item"><button class="faq-q">How long does a custom project take?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Websites go live in about a week. Dashboards and analytics tools typically take 2–6 weeks depending on complexity. We'll give you a clear timeline before work begins.</p></div></div>
+      <div class="faq-item"><button class="faq-q">Do I own what you build?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Yes. Your website, code, data, and content are yours. If you ever decide to part ways, we hand everything over — no strings attached.</p></div></div>
+      <div class="faq-item"><button class="faq-q">What if I'm not sure what I need?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>That's exactly what the audit is for. We'll walk through your operations, identify pain points, and recommend solutions — even if the answer is "you don't need custom software right now."</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="section-inner fade-up">
+    <div class="section-label">Ready?</div>
+    <h2 class="section-title">Find out what software can do for your business</h2>
+    <p class="section-sub">Get a free business audit. We'll analyze your operations, identify opportunities, and give you an honest recommendation — no sales pitch, no obligation.</p>
+    <a href="#contact" class="btn btn-primary">Get Your Free Website Audit</a>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-hd c fade-up">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title">Let's start with a conversation</h2>
+      <p class="section-sub">Tell us about your business and we'll get back to you within 24 hours with your free audit.</p>
+    </div>
+    <div class="contact-grid fade-up">
+      <div class="contact-info">
+        <h3>Rational Build</h3>
+        <p>We build software for real estate and home service companies in San Diego. From professional websites to custom dashboards and analytics platforms — we help you run smarter and grow faster.</p>
+        <div class="c-detail">
+          <div class="c-detail-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><strong>Location</strong><span>San Diego, CA</span></div>
+        </div>
+        <div class="c-detail">
+          <div class="c-detail-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg></div>
+          <div><strong>Email</strong><a href="mailto:lwdevelopement@gmail.com">lwdevelopement@gmail.com</a></div>
+        </div>
+        <div class="c-detail">
+          <div class="c-detail-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.11 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div><strong>Response time</strong><span>Within 24 hours</span></div>
+        </div>
+      </div>
+      <form class="c-form" id="contactForm">
+        <input type="hidden" name="access_key" value="da524019-04b5-45ef-8554-c800c89c5821">
+        <input type="hidden" name="subject" value="New Website Audit Request (Homepage)">
+        <input type="hidden" name="from_name" value="Rational Build Website">
+        <input type="checkbox" name="botcheck" style="display:none;">
+        <div class="f-row">
+          <div class="fg"><label for="name">Your name</label><input type="text" id="name" name="name" placeholder="John Smith" required></div>
+          <div class="fg"><label for="phone">Phone number</label><input type="tel" id="phone" name="phone" placeholder="(619) 555-0123"></div>
+        </div>
+        <div class="fg"><label for="email">Email address</label><input type="email" id="email" name="email" placeholder="john@example.com" required></div>
+        <div class="fg">
+          <label for="business">Industry</label>
+          <select id="business" name="business">
+            <option value="">Select your industry</option>
+            <option value="real-estate-investor">Real Estate Investor</option>
+            <option value="property-management">Property Management</option>
+            <option value="real-estate-agent">Real Estate Agent / Brokerage</option>
+            <option value="plumbing">Plumbing</option>
+            <option value="roofing">Roofing</option>
+            <option value="painting">Painting</option>
+            <option value="landscaping">Landscaping</option>
+            <option value="electrical">Electrical</option>
+            <option value="hvac">HVAC</option>
+            <option value="general-contractor">General Contractor</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="interest">What are you looking for?</label>
+          <select id="interest" name="interest">
+            <option value="">Select an option</option>
+            <option value="website">Business website</option>
+            <option value="dashboard">Internal dashboard</option>
+            <option value="analytics">Business intelligence &amp; analytics</option>
+            <option value="automation">Automation &amp; integrations</option>
+            <option value="audit">Not sure — I want a full business audit</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+        <div class="fg"><label for="message">Tell us about your business</label><textarea id="message" name="message" placeholder="What does your business do? What problems are you trying to solve?"></textarea></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Get My Free Website Audit</button>
+        <p id="contactFormStatus" style="margin:12px 0 0;color:#111827;display:none;"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="section-inner">
+    <p>&copy; 2026 Rational Build. Software solutions for real estate &amp; home services in San Diego.</p>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('mobileToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10));
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!open) item.classList.add('open');
+    });
+  });
+
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const form = this;
+    const btn = form.querySelector('button[type="submit"]');
+    const status = document.getElementById('contactFormStatus');
+    const orig = btn.innerHTML;
+    btn.innerHTML = 'Sending...';
+    btn.disabled = true;
+    status.style.display = 'none';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        status.textContent = 'Sent! We will be in touch within 24 hours.';
+        status.style.color = '#10b981';
+        status.style.display = 'block';
+        form.reset();
+      } else {
+        status.textContent = 'Submission failed. Please try again in a minute.';
+        status.style.color = '#dc2626';
+        status.style.display = 'block';
+      }
+    } catch (error) {
+      status.textContent = 'Network error. Please check your connection and try again.';
+      status.style.color = '#dc2626';
+      status.style.display = 'block';
+    } finally {
+      btn.innerHTML = orig;
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>

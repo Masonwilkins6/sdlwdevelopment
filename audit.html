@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Website Audit — Rational Build</title>
+  <meta name="description" content="Get a free website audit for your business. We'll analyze your site and email you a detailed report with actionable recommendations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-2: #475569;
+      --text-3: #94a3b8;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-glow: rgba(37,99,235,0.08);
+      --border: #e2e8f0;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --radius: 14px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      display: flex; align-items: center; justify-content: space-between; height: 64px;
+    }
+    .logo { font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; letter-spacing: -.02em; }
+    .logo span { color: var(--primary); }
+    .back-link {
+      font-size: .875rem; font-weight: 500; color: var(--text-2);
+      text-decoration: none; display: flex; align-items: center; gap: 6px;
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--primary); }
+
+    /* ---- MAIN ---- */
+    .main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 28px; }
+
+    .card {
+      width: 100%; max-width: 520px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 44px 40px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.03);
+    }
+
+    .card-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--primary-light);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .card h1 {
+      font-size: 1.5rem; font-weight: 800; letter-spacing: -.025em;
+      margin-bottom: 8px;
+    }
+    .card > p {
+      font-size: .95rem; color: var(--text-2); line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .fg { margin-bottom: 20px; }
+    .fg label { display: block; font-size: .82rem; font-weight: 600; margin-bottom: 6px; }
+    .fg input, .fg select {
+      width: 100%; padding: 12px 16px;
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      font-family: inherit; font-size: .9rem; color: var(--text); background: var(--bg);
+      transition: border-color .2s, box-shadow .2s; outline: none;
+    }
+    .fg input:focus, .fg select:focus {
+      border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow);
+    }
+    .fg input::placeholder { color: var(--text-3); }
+    .fg .hint { font-size: .78rem; color: var(--text-3); margin-top: 5px; }
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 13px 28px; border-radius: var(--radius-sm);
+      font-size: .93rem; font-weight: 600; text-decoration: none;
+      border: none; cursor: pointer; transition: all .2s ease;
+      background: var(--primary); color: #fff;
+      box-shadow: 0 1px 6px rgba(37,99,235,.25);
+    }
+    .btn:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 16px rgba(37,99,235,.3);
+      transform: translateY(-1px);
+    }
+    .btn:disabled {
+      opacity: .7; cursor: not-allowed; transform: none;
+    }
+
+    .checklist {
+      list-style: none; display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 32px; padding: 20px 24px;
+      background: var(--bg); border-radius: var(--radius-sm); border: 1px solid var(--border);
+    }
+    .checklist li {
+      font-size: .85rem; color: var(--text-2); display: flex; align-items: center; gap: 10px; font-weight: 500;
+    }
+    .checklist li svg { color: var(--primary); flex-shrink: 0; }
+
+    /* ---- CONFIRMATION ---- */
+    .confirmation { text-align: center; }
+    .confirmation .card-icon {
+      margin: 0 auto 24px;
+      background: var(--success-light);
+      width: 64px; height: 64px; border-radius: 50%;
+    }
+    .confirmation h1 { margin-bottom: 12px; }
+    .confirmation > p { margin-bottom: 28px; }
+    .confirmation .detail-box {
+      text-align: left; padding: 20px 24px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      margin-bottom: 28px;
+    }
+    .detail-box .row {
+      display: flex; justify-content: space-between; padding: 8px 0;
+      font-size: .88rem;
+    }
+    .detail-box .row:not(:last-child) { border-bottom: 1px solid var(--border); }
+    .detail-box .row .label { color: var(--text-3); font-weight: 500; }
+    .detail-box .row .value { color: var(--text); font-weight: 600; text-align: right; word-break: break-all; }
+    .confirmation .note {
+      font-size: .85rem; color: var(--text-3); line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .btn-outline {
+      background: var(--surface); color: var(--text); border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(0,0,0,.03);
+    }
+    .btn-outline:hover { border-color: #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,.06); background: var(--surface); }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: var(--surface); border-top: 1px solid var(--border);
+      padding: 24px 28px; text-align: center; font-size: .8rem; color: var(--text-3);
+    }
+
+    /* ---- SPINNER ---- */
+    .spinner {
+      width: 18px; height: 18px; border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin .6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 580px) {
+      .card { padding: 32px 24px; }
+      .f-row { grid-template-columns: 1fr; }
+      .main { padding: 40px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Rational<span>Build</span></a>
+    <a href="index.html" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to home
+    </a>
+  </div>
+</nav>
+
+<div class="main">
+  <!-- FORM STATE -->
+  <div class="card" id="formCard">
+    <div class="card-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    </div>
+    <h1>Free Website Audit</h1>
+    <p>Submit your website and we'll send you a detailed audit report with actionable recommendations to improve your online presence.</p>
+
+    <ul class="checklist">
+      <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Mobile-friendliness &amp; page speed</li>
+      <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>SEO &amp; local search visibility</li>
+      <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Security &amp; SSL status</li>
+      <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Conversion opportunities (CTAs, forms, booking)</li>
+      <li><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Competitor comparison</li>
+    </ul>
+
+    <form id="auditForm">
+      <input type="hidden" name="access_key" value="da524019-04b5-45ef-8554-c800c89c5821">
+      <input type="hidden" name="subject" value="New Website Audit Request (Audit Page)">
+      <input type="hidden" name="from_name" value="Rational Build Website">
+      <input type="checkbox" name="botcheck" style="display:none;">
+      <div class="fg">
+        <label for="website">Website URL</label>
+        <input type="url" id="website" name="website" placeholder="https://yoursite.com" required>
+        <div class="hint">Don't have a website? Enter your Google Business listing or Facebook page.</div>
+      </div>
+      <div class="f-row">
+        <div class="fg"><label for="name">Your name</label><input type="text" id="name" name="name" placeholder="John Smith" required></div>
+        <div class="fg"><label for="phone">Phone number</label><input type="tel" id="phone" name="phone" placeholder="(619) 555-0123"></div>
+      </div>
+      <div class="fg"><label for="email">Email address</label><input type="email" id="email" name="email" placeholder="john@example.com" required></div>
+      <div class="fg">
+        <label for="business">Industry</label>
+        <select id="business" name="business">
+          <option value="">Select your industry</option>
+          <option value="real-estate-investor">Real Estate Investor</option>
+          <option value="property-management">Property Management</option>
+          <option value="real-estate-agent">Real Estate Agent / Brokerage</option>
+          <option value="plumbing">Plumbing</option>
+          <option value="roofing">Roofing</option>
+          <option value="painting">Painting</option>
+          <option value="landscaping">Landscaping</option>
+          <option value="electrical">Electrical</option>
+          <option value="hvac">HVAC</option>
+          <option value="general-contractor">General Contractor</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <button type="submit" class="btn" id="submitBtn">Submit for Free Audit</button>
+      <p id="auditFormStatus" style="margin:12px 0 0;color:#111827;display:none;"></p>
+    </form>
+  </div>
+
+  <!-- CONFIRMATION STATE -->
+  <div class="card confirmation" id="confirmCard" style="display:none;">
+    <div class="card-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h1>We're on it!</h1>
+    <p>Your website has been submitted for a full audit. We'll review everything and email you a detailed report within 24–48 hours.</p>
+
+    <div class="detail-box">
+      <div class="row"><span class="label">Website</span><span class="value" id="confUrl"></span></div>
+      <div class="row"><span class="label">Report sent to</span><span class="value" id="confEmail"></span></div>
+      <div class="row"><span class="label">Expected delivery</span><span class="value" id="confDate"></span></div>
+    </div>
+
+    <p class="note">Your audit will cover mobile-friendliness, page speed, SEO, security, and conversion opportunities — with specific recommendations tailored to your business.</p>
+
+    <a href="index.html" class="btn btn-outline">Back to Rational Build</a>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Rational Build. Software solutions for real estate &amp; home services in San Diego.</p>
+</footer>
+
+<script>
+  const form = document.getElementById('auditForm');
+  const formCard = document.getElementById('formCard');
+  const confirmCard = document.getElementById('confirmCard');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const status = document.getElementById('auditFormStatus');
+
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<div class="spinner"></div> Submitting...';
+    status.style.display = 'none';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.message || 'Submission failed');
+      }
+
+      const url = document.getElementById('website').value;
+      const email = document.getElementById('email').value;
+
+      // Calculate delivery date (48 hours from now)
+      const delivery = new Date();
+      delivery.setDate(delivery.getDate() + 2);
+      const options = { weekday: 'long', month: 'long', day: 'numeric' };
+
+      // Populate confirmation
+      document.getElementById('confUrl').textContent = url;
+      document.getElementById('confEmail').textContent = email;
+      document.getElementById('confDate').textContent = 'By ' + delivery.toLocaleDateString('en-US', options);
+
+      // Switch views
+      formCard.style.display = 'none';
+      confirmCard.style.display = 'block';
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      status.textContent = 'Submission failed. Please try again in a minute.';
+      status.style.color = '#dc2626';
+      status.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit for Free Audit';
+    }
+  });
+</script>
+
+</body>
+</html>
