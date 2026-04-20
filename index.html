@@ -144,6 +144,32 @@
     .section-hd.c { text-align: center; }
     .section-hd.c .section-sub { margin: 0 auto; }
 
+    /* ---- TAB SWITCHER ---- */
+    .tab-bar {
+      display: flex; justify-content: center; gap: 8px;
+      padding: 6px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px; max-width: 520px; margin: 0 auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,.03);
+    }
+    .tab-btn {
+      flex: 1; padding: 14px 24px; border: none; border-radius: 100px;
+      font-family: inherit; font-size: .9rem; font-weight: 600;
+      cursor: pointer; transition: all .25s ease;
+      background: transparent; color: var(--text-2);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .tab-btn:hover { color: var(--text); background: var(--bg); }
+    .tab-btn.active {
+      background: var(--primary); color: #fff;
+      box-shadow: 0 2px 8px rgba(37,99,235,.25);
+    }
+    .tab-btn.active:hover { background: var(--primary-dark); }
+    .tab-section { padding: 52px 28px 0; }
+    .tab-section .section-inner { max-width: var(--max-w); margin: 0 auto; }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
     /* ---- PROBLEM ---- */
     .alt-bg { background: var(--surface); }
     .pgrid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
@@ -162,6 +188,7 @@
 
     /* ---- SOLUTIONS ---- */
     .sgrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .sgrid.two-col { grid-template-columns: repeat(2,1fr); max-width: 780px; margin: 0 auto; }
     .scard {
       padding: 30px 26px; background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius); transition: all .25s ease;
@@ -182,6 +209,7 @@
 
     /* ---- PRICING ---- */
     .pricegrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; align-items: start; }
+    .pricegrid.two-col { grid-template-columns: repeat(2,1fr); max-width: 780px; margin: 0 auto; }
     .prcard {
       border: 1px solid var(--border); border-radius: var(--radius);
       padding: 34px 28px; background: var(--surface); transition: all .25s ease;
@@ -311,11 +339,14 @@
       }
       .mobile-toggle { display: block; }
       .hero { padding: 120px 20px 64px; }
-      .pgrid, .sgrid, .pricegrid { grid-template-columns: 1fr; }
+      .pgrid, .sgrid, .sgrid.two-col, .pricegrid, .pricegrid.two-col { grid-template-columns: 1fr; }
       .proc-grid { grid-template-columns: 1fr 1fr; }
       .contact-grid { grid-template-columns: 1fr; gap: 32px; }
       .f-row { grid-template-columns: 1fr; }
       .hero-proof { gap: 16px; }
+      .tab-bar { max-width: 100%; }
+      .tab-btn { padding: 12px 16px; font-size: .82rem; }
+      .tab-section { padding: 36px 20px 0; }
     }
 
     /* ---- ANIM ---- */
@@ -359,157 +390,293 @@
   </div>
 </section>
 
-<section class="alt-bg" id="problem">
+<!-- ============ TAB SWITCHER ============ -->
+<div class="tab-section">
   <div class="section-inner">
-    <div class="section-hd c fade-up">
-      <div class="section-label">The Problem</div>
-      <h2 class="section-title">You're running your business on spreadsheets and gut instinct</h2>
-      <p class="section-sub">Most real estate and home service businesses have the same blind spots. The right software turns these into competitive advantages.</p>
-    </div>
-    <div class="pgrid">
-      <div class="pcard fade-up"><div class="pcard-icon">&#128202;</div><h3>No visibility into your numbers</h3><p>Deal analysis lives in scattered spreadsheets. Job profitability is a guess. You can't see what's working until it's too late to change course.</p></div>
-      <div class="pcard fade-up"><div class="pcard-icon">&#128241;</div><h3>Your online presence is costing you leads</h3><p>Your website is outdated, slow, or doesn't exist. Customers are searching for your services and finding your competitors instead.</p></div>
-      <div class="pcard fade-up"><div class="pcard-icon">&#9203;</div><h3>Manual processes eating your time</h3><p>Hours spent on tasks that should be automated lead tracking, reporting, scheduling, follow-ups. Time you could spend closing deals.</p></div>
-      <div class="pcard fade-up"><div class="pcard-icon">&#128736;</div><h3>Off-the-shelf tools don't fit</h3><p>Generic SaaS products force you into their workflow. You need tools shaped around how your business actually operates.</p></div>
+    <div class="tab-bar fade-up">
+      <button class="tab-btn active" data-tab="websites">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        Website Services
+      </button>
+      <button class="tab-btn" data-tab="software">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        Software Development
+      </button>
     </div>
   </div>
-</section>
+</div>
 
-<section id="solutions">
-  <div class="section-inner">
-    <div class="section-hd c fade-up">
-      <div class="section-label">What We Build</div>
-      <h2 class="section-title">Software solutions tailored to your business</h2>
-      <p class="section-sub">Every engagement starts with understanding your business. Then we build exactly what you need nothing more, nothing less.</p>
-    </div>
-    <div class="sgrid">
-      <div class="scard fade-up">
-        <div class="scard-icon">&#127760;</div>
-        <h3>Business Websites</h3>
-        <p>Professional, mobile-first websites that convert visitors into customers. Built for speed, SEO, and credibility.</p>
-        <ul class="sfeats">
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom design &amp; branding</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Click-to-call, booking, contact forms</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Local SEO &amp; Google Business Profile</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>SSL, hosting &amp; ongoing maintenance</li>
-        </ul>
-      </div>
-      <div class="scard fade-up">
-        <div class="scard-icon">&#128200;</div>
-        <h3>Internal Dashboards</h3>
-        <p>Custom dashboards that give you real-time visibility into your operations, pipeline, and financials all in one place.</p>
-        <ul class="sfeats">
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>KPI tracking &amp; reporting</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Job &amp; project management</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Lead pipeline &amp; CRM integration</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Role-based access for your team</li>
-        </ul>
-      </div>
-      <div class="scard fade-up">
-        <div class="scard-icon">&#127968;</div>
-        <h3>Business Intelligence &amp; Analytics</h3>
-        <p>Turn your raw data into actionable insights. Understand your market, track your competition, and make smarter decisions.</p>
-        <ul class="sfeats">
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Competitive &amp; market analysis tools</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Financial modeling &amp; forecasting</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Performance benchmarking &amp; scoring</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom reports &amp; data visualization</li>
-        </ul>
-      </div>
-      <div class="scard fade-up">
-        <div class="scard-icon">&#129302;</div>
-        <h3>Automation &amp; Integrations</h3>
-        <p>Connect your existing tools and automate the repetitive work that's slowing you down. More output, less busywork.</p>
-        <ul class="sfeats">
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Automated lead capture &amp; follow-up</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Scheduling &amp; dispatch systems</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>API integrations with your stack</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom reporting &amp; alerts</li>
-        </ul>
-      </div>
-      <div class="scard fade-up">
-        <div class="scard-icon">&#128161;</div>
-        <h3>Technology Audit &amp; Strategy</h3>
-        <p>Not sure what you need? We'll audit your current operations and identify the highest-impact software opportunities.</p>
-        <ul class="sfeats">
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Full business process audit</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Technology roadmap &amp; recommendations</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Build vs. buy analysis</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing strategic guidance</li>
-        </ul>
-      </div>
-      <div class="scard fade-up">
-        <div class="scard-icon">&#128640;</div>
-        <h3>Custom Software</h3>
-        <p>Have a specific problem? We design and build custom applications from the ground up scoped to your exact requirements.</p>
-        <ul class="sfeats">
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Full-stack web applications</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Data pipelines &amp; ETL</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Mobile-responsive &amp; modern UI</li>
-          <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing support &amp; iteration</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ============ WEBSITE SERVICES TAB ============ -->
+<div class="tab-content active" id="tab-websites">
 
-<section class="alt-bg" id="pricing">
-  <div class="section-inner">
-    <div class="section-hd c fade-up">
-      <div class="section-label">Pricing</div>
-      <h2 class="section-title">Flexible engagement models</h2>
-      <p class="section-sub">Whether you need a managed website or a full custom build, we have a model that fits. Every engagement starts with a free business audit.</p>
-    </div>
-    <div class="pricegrid">
-      <div class="prcard fade-up">
-        <div class="pr-name">Starter</div>
-        <div class="pr-desc">Professional website with hosting &amp; maintenance</div>
-        <div class="pr-amt"><span class="pr-dollar">$99</span><span class="pr-period">/month</span></div>
-        <div class="pr-setup">$0 setup fee</div>
-        <ul class="pr-feats">
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>5-page mobile-friendly website</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>SSL certificate &amp; hosting</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Click-to-call &amp; contact form</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly maintenance &amp; updates</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Cancel anytime no contracts</li>
-        </ul>
-        <a href="#contact" class="btn btn-secondary">Get Started</a>
+  <section class="alt-bg" id="problem-websites">
+    <div class="section-inner">
+      <div class="section-hd c fade-up">
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">Your online presence is costing you leads</h2>
+        <p class="section-sub">Customers are searching for your services online. If your website is outdated, slow, or doesn't exist, they're finding your competitors instead.</p>
       </div>
-      <div class="prcard feat fade-up">
-        <div class="pr-pop">Most Popular</div>
-        <div class="pr-name">Growth</div>
-        <div class="pr-desc">Website + SEO + lead generation tools</div>
-        <div class="pr-amt"><span class="pr-dollar">$199</span><span class="pr-period">/month</span></div>
-        <div class="pr-setup">$0 setup fee</div>
-        <ul class="pr-feats">
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Starter</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Google Business Profile optimization</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Local SEO &amp; schema markup</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Online booking integration</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reviews integration</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly performance report</li>
-        </ul>
-        <a href="#contact" class="btn btn-primary">Get Started</a>
-      </div>
-      <div class="prcard fade-up">
-        <div class="pr-name">Custom Build</div>
-        <div class="pr-desc">Dashboards, analytics tools &amp; custom software</div>
-        <div class="pr-amt"><span class="pr-dollar">Custom</span></div>
-        <div class="pr-setup">Scoped to your needs</div>
-        <ul class="pr-feats">
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Free business audit</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Internal dashboards &amp; reporting</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Business intelligence &amp; analytics</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Automation &amp; integrations</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Full-stack custom applications</li>
-          <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing support &amp; iteration</li>
-        </ul>
-        <a href="#contact" class="btn btn-secondary">Get Your Free Audit</a>
+      <div class="pgrid">
+        <div class="pcard fade-up"><div class="pcard-icon">&#128241;</div><h3>No website or an outdated one</h3><p>First impressions happen online. A missing or outdated website kills credibility before you even get a chance to earn the job.</p></div>
+        <div class="pcard fade-up"><div class="pcard-icon">&#128269;</div><h3>Invisible on Google</h3><p>You're not showing up in local search results. Potential customers searching "plumber near me" or "San Diego roofer" aren't finding you.</p></div>
+        <div class="pcard fade-up"><div class="pcard-icon">&#128222;</div><h3>No easy way to contact you</h3><p>No click-to-call, no booking form, no clear call-to-action. Visitors leave because it's too hard to reach you.</p></div>
+        <div class="pcard fade-up"><div class="pcard-icon">&#128176;</div><h3>Paying too much for too little</h3><p>You're spending $200+/month on a website builder that gives you a cookie-cutter template with no SEO and no real support.</p></div>
       </div>
     </div>
-    <p class="pr-note fade-up">Website plans: no contracts, cancel anytime. Custom projects: scoped and quoted after your free business audit.</p>
-  </div>
-</section>
+  </section>
+
+  <section id="solutions">
+    <div class="section-inner">
+      <div class="section-hd c fade-up">
+        <div class="section-label">What We Offer</div>
+        <h2 class="section-title">Professional websites that generate leads</h2>
+        <p class="section-sub">We handle everything from design to hosting so you can focus on running your business.</p>
+      </div>
+      <div class="sgrid two-col">
+        <div class="scard fade-up">
+          <div class="scard-icon">&#127760;</div>
+          <h3>Custom Website Design</h3>
+          <p>Professional, mobile-first websites built for speed, SEO, and credibility. No templates, no page builders.</p>
+          <ul class="sfeats">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom design &amp; branding</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Click-to-call, booking, contact forms</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Mobile-responsive on every device</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Fast load times &amp; modern design</li>
+          </ul>
+        </div>
+        <div class="scard fade-up">
+          <div class="scard-icon">&#128200;</div>
+          <h3>SEO, Hosting &amp; Maintenance</h3>
+          <p>We don't just build your site and disappear. We host, maintain, and optimize it so it keeps working for you.</p>
+          <ul class="sfeats">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Local SEO &amp; Google Business Profile</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>SSL certificate &amp; secure hosting</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly maintenance &amp; content updates</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Performance reports &amp; reviews integration</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt-bg" id="pricing">
+    <div class="section-inner">
+      <div class="section-hd c fade-up">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-title">Simple, transparent website plans</h2>
+        <p class="section-sub">No setup fees, no contracts. Cancel anytime. Every plan includes hosting, SSL, and ongoing maintenance.</p>
+      </div>
+      <div class="pricegrid two-col">
+        <div class="prcard fade-up">
+          <div class="pr-name">Starter</div>
+          <div class="pr-desc">Professional website with hosting &amp; maintenance</div>
+          <div class="pr-amt"><span class="pr-dollar">$99</span><span class="pr-period">/month</span></div>
+          <div class="pr-setup">$0 setup fee</div>
+          <ul class="pr-feats">
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>5-page mobile-friendly website</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>SSL certificate &amp; hosting</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Click-to-call &amp; contact form</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly maintenance &amp; updates</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Cancel anytime no contracts</li>
+          </ul>
+          <a href="#contact" class="btn btn-secondary">Get Started</a>
+        </div>
+        <div class="prcard feat fade-up">
+          <div class="pr-pop">Most Popular</div>
+          <div class="pr-name">Growth</div>
+          <div class="pr-desc">Website + SEO + lead generation tools</div>
+          <div class="pr-amt"><span class="pr-dollar">$199</span><span class="pr-period">/month</span></div>
+          <div class="pr-setup">$0 setup fee</div>
+          <ul class="pr-feats">
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Starter</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Google Business Profile optimization</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Local SEO &amp; schema markup</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Online booking integration</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reviews integration</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly performance report</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Get Started</a>
+        </div>
+      </div>
+      <p class="pr-note fade-up">No contracts, cancel anytime. Every plan includes a free website audit to get started.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="section-inner">
+      <div class="section-hd c fade-up">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title">Website services questions</h2>
+      </div>
+      <div class="faq-list fade-up">
+        <div class="faq-item"><button class="faq-q">I just need a website is that okay?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Absolutely. Our Starter and Growth plans are built for exactly that professional websites with hosting, maintenance, and SEO. No pressure to go bigger unless it makes sense for your business.</p></div></div>
+        <div class="faq-item"><button class="faq-q">How long does it take to get my website live?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Most websites go live within about a week. We'll give you a clear timeline before work begins.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Do I own my website?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Yes. Your website and all custom-built assets are fully yours. We handle hosting and maintenance as part of your plan.</p></div></div>
+        <div class="faq-item"><button class="faq-q">What if I already have a website?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>We'll start with a free audit of your current site. If it needs a refresh or rebuild, we'll handle the migration. If it just needs optimization, we can work with what you have.</p></div></div>
+        <div class="faq-item"><button class="faq-q">What industries do you work with?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>We focus on real estate (investors, agents, property managers) and home services (plumbers, roofers, electricians, painters, landscapers, HVAC). Our tools are built around how these businesses actually operate.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ SOFTWARE DEVELOPMENT TAB ============ -->
+<div class="tab-content" id="tab-software">
+
+  <section class="alt-bg" id="problem-software">
+    <div class="section-inner">
+      <div class="section-hd c fade-up">
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">You're running your business on spreadsheets and gut instinct</h2>
+        <p class="section-sub">Most real estate and home service businesses have the same blind spots. The right software turns these into competitive advantages.</p>
+      </div>
+      <div class="pgrid">
+        <div class="pcard fade-up"><div class="pcard-icon">&#128202;</div><h3>No visibility into your numbers</h3><p>Deal analysis lives in scattered spreadsheets. Job profitability is a guess. You can't see what's working until it's too late to change course.</p></div>
+        <div class="pcard fade-up"><div class="pcard-icon">&#9203;</div><h3>Manual processes eating your time</h3><p>Hours spent on tasks that should be automated lead tracking, reporting, scheduling, follow-ups. Time you could spend closing deals.</p></div>
+        <div class="pcard fade-up"><div class="pcard-icon">&#128736;</div><h3>Off-the-shelf tools don't fit</h3><p>Generic SaaS products force you into their workflow. You need tools shaped around how your business actually operates.</p></div>
+        <div class="pcard fade-up"><div class="pcard-icon">&#128203;</div><h3>Data scattered everywhere</h3><p>Your data lives in five different tools that don't talk to each other. You can't get a clear picture of your business without hours of manual work.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="solutions-software">
+    <div class="section-inner">
+      <div class="section-hd c fade-up">
+        <div class="section-label">What We Build</div>
+        <h2 class="section-title">Custom software tailored to your operations</h2>
+        <p class="section-sub">Every engagement starts with understanding your business. Then we build exactly what you need nothing more, nothing less.</p>
+      </div>
+      <div class="sgrid">
+        <div class="scard fade-up">
+          <div class="scard-icon">&#128200;</div>
+          <h3>Internal Dashboards</h3>
+          <p>Custom dashboards that give you real-time visibility into your operations, pipeline, and financials all in one place.</p>
+          <ul class="sfeats">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>KPI tracking &amp; reporting</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Job &amp; project management</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Lead pipeline &amp; CRM integration</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Role-based access for your team</li>
+          </ul>
+        </div>
+        <div class="scard fade-up">
+          <div class="scard-icon">&#127968;</div>
+          <h3>Business Intelligence &amp; Analytics</h3>
+          <p>Turn your raw data into actionable insights. Understand your market, track your competition, and make smarter decisions.</p>
+          <ul class="sfeats">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Competitive &amp; market analysis tools</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Financial modeling &amp; forecasting</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Performance benchmarking &amp; scoring</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom reports &amp; data visualization</li>
+          </ul>
+        </div>
+        <div class="scard fade-up">
+          <div class="scard-icon">&#129302;</div>
+          <h3>Automation &amp; Integrations</h3>
+          <p>Connect your existing tools and automate the repetitive work that's slowing you down. More output, less busywork.</p>
+          <ul class="sfeats">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Automated lead capture &amp; follow-up</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Scheduling &amp; dispatch systems</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>API integrations with your stack</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Custom reporting &amp; alerts</li>
+          </ul>
+        </div>
+        <div class="scard fade-up">
+          <div class="scard-icon">&#128161;</div>
+          <h3>Technology Audit &amp; Strategy</h3>
+          <p>Not sure what you need? We'll audit your current operations and identify the highest-impact software opportunities.</p>
+          <ul class="sfeats">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Full business process audit</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Technology roadmap &amp; recommendations</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Build vs. buy analysis</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing strategic guidance</li>
+          </ul>
+        </div>
+        <div class="scard fade-up">
+          <div class="scard-icon">&#128640;</div>
+          <h3>Custom Software</h3>
+          <p>Have a specific problem? We design and build custom applications from the ground up scoped to your exact requirements.</p>
+          <ul class="sfeats">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Full-stack web applications</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Data pipelines &amp; ETL</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Mobile-responsive &amp; modern UI</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing support &amp; iteration</li>
+          </ul>
+        </div>
+        <div class="scard fade-up">
+          <div class="scard-icon">&#128295;</div>
+          <h3>Internal Tools &amp; Workflow</h3>
+          <p>Replace the spreadsheets and manual processes slowing your team down with purpose-built internal tools.</p>
+          <ul class="sfeats">
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Estimating &amp; invoicing tools</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Crew &amp; job scheduling</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Document &amp; contract management</li>
+            <li><svg class="check-icon" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Team portals &amp; communication</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt-bg" id="pricing-software">
+    <div class="section-inner">
+      <div class="section-hd c fade-up">
+        <div class="section-label">Pricing</div>
+        <h2 class="section-title">Custom-scoped to your business</h2>
+        <p class="section-sub">Every custom project starts with a free business audit. We'll map out what to build and give you a clear, fixed-price proposal.</p>
+      </div>
+      <div class="pricegrid two-col">
+        <div class="prcard fade-up">
+          <div class="pr-name">Consulting &amp; Strategy</div>
+          <div class="pr-desc">Technology audit, roadmap &amp; ongoing advisory</div>
+          <div class="pr-amt"><span class="pr-dollar">Custom</span></div>
+          <div class="pr-setup">Starts with a free audit</div>
+          <ul class="pr-feats">
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Full business process audit</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Technology roadmap &amp; recommendations</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Build vs. buy analysis</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing strategic guidance</li>
+          </ul>
+          <a href="#contact" class="btn btn-secondary">Get Your Free Audit</a>
+        </div>
+        <div class="prcard feat fade-up">
+          <div class="pr-pop">Full Service</div>
+          <div class="pr-name">Custom Build</div>
+          <div class="pr-desc">Dashboards, analytics tools, internal software &amp; integrations</div>
+          <div class="pr-amt"><span class="pr-dollar">Custom</span></div>
+          <div class="pr-setup">Scoped to your needs</div>
+          <ul class="pr-feats">
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Internal dashboards &amp; reporting</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Business intelligence &amp; analytics</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Automation &amp; integrations</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Full-stack custom applications</li>
+            <li><svg class="check-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3 4.3L6 11.6 2.7 8.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing support &amp; iteration</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Get Your Free Audit</a>
+        </div>
+      </div>
+      <p class="pr-note fade-up">Custom projects are scoped and quoted after your free business audit. No obligation, no surprises.</p>
+    </div>
+  </section>
+
+  <section id="faq-software">
+    <div class="section-inner">
+      <div class="section-hd c fade-up">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title">Software development questions</h2>
+      </div>
+      <div class="faq-list fade-up">
+        <div class="faq-item"><button class="faq-q">How much does custom software cost?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>It depends on scope and complexity. After your free audit, we'll provide a clear, fixed-price proposal.</p></div></div>
+        <div class="faq-item"><button class="faq-q">How long does a custom project take?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Dashboards and analytics tools typically take 2-6 weeks depending on complexity. Larger custom applications may take longer. We'll give you a clear timeline before work begins.</p></div></div>
+        <div class="faq-item"><button class="faq-q">Do I own what you build?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Yes. Your custom-built assets are fully yours. For advanced tools and AI systems, we offer them as a managed service through a subscription so we can handle updates, performance, and support.</p></div></div>
+        <div class="faq-item"><button class="faq-q">What if I'm not sure what I need?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>That's exactly what the audit is for. We'll walk through your operations, identify pain points, and recommend solutions even if the answer is "you don't need custom software right now."</p></div></div>
+        <div class="faq-item"><button class="faq-q">What industries do you work with?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>We focus on real estate (investors, agents, property managers) and home services (plumbers, roofers, electricians, painters, landscapers, HVAC). Our tools are built around how these businesses actually operate.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ SHARED SECTIONS (always visible) ============ -->
 
 <section id="process">
   <div class="section-inner">
@@ -527,29 +694,12 @@
   </div>
 </section>
 
-<section class="alt-bg" id="faq">
-  <div class="section-inner">
-    <div class="section-hd c fade-up">
-      <div class="section-label">FAQ</div>
-      <h2 class="section-title">Common questions</h2>
-    </div>
-    <div class="faq-list fade-up">
-      <div class="faq-item"><button class="faq-q">What industries do you work with?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>We focus on real estate (investors, agents, property managers) and home services (plumbers, roofers, electricians, painters, landscapers, HVAC). Our tools are built around how these businesses actually operate.</p></div></div>
-      <div class="faq-item"><button class="faq-q">I just need a website is that okay?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Absolutely. Our Starter and Growth plans are built for exactly that professional websites with hosting, maintenance, and SEO. No pressure to go bigger unless it makes sense for your business.</p></div></div>
-      <div class="faq-item"><button class="faq-q">How much does custom software cost?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>It depends on scope and complexity. After your free audit, we'll provide a clear, fixed-price proposal.</p></div></div>
-      <div class="faq-item"><button class="faq-q">How long does a custom project take?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Websites go live in about a week. Dashboards and analytics tools typically take 2–6 weeks depending on complexity. We'll give you a clear timeline before work begins.</p></div></div>
-      <div class="faq-item"><button class="faq-q">Do I own what you build?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>Yes. Your website and any custom-built assets are fully yours. For advanced tools and AI systems, we offer them as a managed service through a subscription. This allows us to handle updates, performance, and support so everything runs smoothly without you having to worry about the technical side.</p></div></div>
-      <div class="faq-item"><button class="faq-q">What if I'm not sure what I need?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="#2563eb" stroke-width="2" stroke-linecap="round"/></svg></div></button><div class="faq-a"><p>That's exactly what the audit is for. We'll walk through your operations, identify pain points, and recommend solutions even if the answer is "you don't need custom software right now."</p></div></div>
-    </div>
-  </div>
-</section>
-
 <section class="cta-band">
   <div class="section-inner fade-up">
     <div class="section-label">Ready?</div>
     <h2 class="section-title">Find out what software can do for your business</h2>
     <p class="section-sub">Get a free business audit. We'll analyze your operations, identify opportunities, and give you an honest recommendation no sales pitch, no obligation.</p>
-    <a href="#contact" class="btn btn-primary">Get Your Free Website Audit</a>
+    <a href="#contact" class="btn btn-primary">Get Your Free Audit</a>
   </div>
 </section>
 
@@ -617,7 +767,7 @@
           </select>
         </div>
         <div class="fg"><label for="message">Tell us about your business</label><textarea id="message" name="message" placeholder="What does your business do? What problems are you trying to solve?"></textarea></div>
-        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Get My Free Website Audit</button>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Get My Free Audit</button>
         <p id="contactFormStatus" style="margin:12px 0 0;color:#111827;display:none;"></p>
       </form>
     </div>
@@ -631,26 +781,63 @@
 </footer>
 
 <script>
+  // Mobile nav toggle
   const toggle = document.getElementById('mobileToggle');
   const links = document.getElementById('navLinks');
   toggle.addEventListener('click', () => links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
 
+  // Nav scroll shadow
   window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10));
 
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  // Fade-up observer
+  function initFadeUps() {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-up:not(.visible)').forEach(el => obs.observe(el));
+  }
+  initFadeUps();
 
-  document.querySelectorAll('.faq-item').forEach(item => {
-    item.querySelector('.faq-q').addEventListener('click', () => {
-      const open = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!open) item.classList.add('open');
+  // Tab switching
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+
+      // Update buttons
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Update content
+      tabContents.forEach(tc => tc.classList.remove('active'));
+      document.getElementById('tab-' + target).classList.add('active');
+
+      // Re-init fade-up animations for newly visible content
+      initFadeUps();
+
+      // Scroll to just below the tab bar
+      const tabBar = document.querySelector('.tab-section');
+      if (tabBar) {
+        tabBar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   });
 
+  // FAQ accordion (works for both tabs)
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.faq-q');
+    if (!btn) return;
+    const item = btn.parentElement;
+    const open = item.classList.contains('open');
+    // Close all in same faq-list
+    item.closest('.faq-list').querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  });
+
+  // Contact form
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const form = this;
